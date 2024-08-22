@@ -24,17 +24,6 @@
   <%= render @splat %>
 </div>
 
-<div class="splat__notes fill-transparent txt-align-start panel center pad-block-half pad-inline-end borderless margin-block-start-double flex align-start" style="--splat-color: <%= @splat.color %>;">
-  <div class="full-width">
-    <%= simple_format @splat.body %>
-  </div>
-
-  <%= tag.button class: "btn txt-small btn--reversed flex-item-no-shrink", style: "--btn-background: #{ @splat.color }" do %>
-    <%= image_tag "pencil.svg", aria: { hidden: true }, size: 24 %>
-    <span class="for-screen-reader">Edit <%= @splat.title %> notes</span>
-  <% end %>
-</div>
-
 <section class="comments panel center borderless margin-block flex flex-column gap" style="--splat-color: <%= @splat.color %>;">
 
   <hr />

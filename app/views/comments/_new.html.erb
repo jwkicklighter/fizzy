@@ -6,7 +6,7 @@
     </div>
     <div class="comment__body txt-align-start">
       <%= form_with model: [@splat, @splat.comments.build], class: "flex flex-column gap full-width" do | form | %>
-      <%= form.text_area :body, class: "input", required: true, placeholder: "Type your comment…", rows: 4 %>
+      <%= form.text_area :body, class: "input", required: true, placeholder: Current.user == @splat.creator && @splat.comments.size == 1 ? "Add some notes…" : "Type your comment…", rows: 4 %>
 
       <%= form.button class: "btn btn--reversed center" do %>
         <%= image_tag "check.svg", aria: { hidden: "true" }, size: 24 %>
