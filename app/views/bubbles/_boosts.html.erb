@@ -1,0 +1,8 @@
+<%= tag.div class: "bubble__bubble bubble__meta bubble__boosts",
+      data: {
+        controller: "animation toggle-class",
+        animation_play_class: "boosting",
+        toggle_class_toggle_class: "boosting",
+        action: "animationend->toggle-class#toggle" } do %>
+  <%= turbo_frame_tag dom_id(bubble, :boosts), src: bubble_boosts_path(bubble) %>
+<% end %>

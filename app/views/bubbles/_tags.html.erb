@@ -1,0 +1,11 @@
+<% bubble.tags.each do |tag| %>
+  <%= link_to "##{tag.title}", bubbles_path(tag_id: tag), class: "bubble__bubble bubble__meta bubble__tag" %>
+<% end %>
+
+<% if bubble.tags.size < 3 %>
+  <span class="bubble__bubble bubble__meta bubble__tag">
+    <%= turbo_frame_tag :new_tag do %>
+      <%= link_to "#", new_bubble_tag_path(bubble), class: "bubble__tag--new" %>
+    <% end %>
+  </span>
+<% end %>
