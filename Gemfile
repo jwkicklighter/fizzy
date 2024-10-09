@@ -20,6 +20,7 @@ gem "bcrypt", "~> 3.1.7"
 gem "rqrcode"
 
 group :development, :test do
+  gem "debug"
   gem "brakeman", require: false
   gem "rubocop-rails-omakase", require: false
 end
