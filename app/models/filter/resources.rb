@@ -15,7 +15,9 @@ module Filter::Resources
   end
 
   private
-    # `denormalize_resource_ids` stores ids in the params column to enforce uniqueness with a db constraint.
+    # `denormalize_resource_ids` stores resource ids in the params column to
+    #    1) enforce uniqueness via db constraints
+    #    2) easily turn all filter params into a query string
     def denormalize_resource_ids
       params["bucket_ids"] = buckets.ids
       params["tag_ids"] = tags.ids
