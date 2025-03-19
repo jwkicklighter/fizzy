@@ -96,13 +96,15 @@ module EventsHelper
   def event_action_icon(event)
     case event.action
     when "assigned"
-      "clipboard"
+      "assigned"
     when "boosted"
       "thumb-up"
     when "staged"
       "bolt"
     when "commented"
       "comment"
+    when "title_changed"
+      "rename"
     else
       "person"
     end
