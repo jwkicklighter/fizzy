@@ -1,38 +1,40 @@
-.bucket {
-  inline-size: min(35ch, 40%);
-  line-height: 1.2;
+@layer components {
+  .bucket {
+    inline-size: min(35ch, 40%);
+    line-height: 1.2;
 
-  mark {
-    background-color: transparent;
-    color: var(--color-link);
-    text-decoration: underline;
+    mark {
+      background-color: transparent;
+      color: var(--color-link);
+      text-decoration: underline;
+    }
   }
-}
 
-.buckets {
-  --gap: 2cqi;
-  --hover-size: 0;
-  --column-gap: var(--gap);
-  --row-gap: var(--gap);
+  .buckets {
+    --gap: 2cqi;
+    --hover-size: 0;
+    --column-gap: var(--gap);
+    --row-gap: var(--gap);
 
-  list-style: none;
-  padding: var(--gap);
-}
+    list-style: none;
+    padding: var(--gap);
+  }
 
-.bucket__button {
-  position: absolute;
-  inset: calc((var(--btn-size) * -1) - 2cqi) 1cqi auto auto;
-}
+  .bucket__button {
+    position: absolute;
+    inset: calc((var(--btn-size) * -1) - 2cqi) 1cqi auto auto;
+  }
 
-.bucket__bubbles {
-  --border-radius: 1.5em;
+  .bucket__bubbles {
+    --border-radius: 1.5em;
 
-  margin-block: 0;
-  max-inline-size: 100%;
-  padding: 1cqi;
-}
+    margin-block: 0;
+    max-inline-size: 100%;
+    padding: 1cqi;
+  }
 
-.bubbles__container {
-  aspect-ratio: 18 / 9;
-  container-type: inline-size;
+  .bubbles__container {
+    aspect-ratio: 18 / 9;
+    container-type: inline-size;
+  }
 }

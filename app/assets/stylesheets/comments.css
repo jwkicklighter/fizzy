@@ -1,104 +1,106 @@
-.comments {
-  --avatar-size: 2.33em;
-  --comment-padding-block: var(--block-space);
-  --comment-padding-inline: var(--inline-space-double);
-  --comment-max: 70ch;
+@layer components {
+  .comments {
+    --avatar-size: 2.33em;
+    --comment-padding-block: var(--block-space);
+    --comment-padding-inline: var(--inline-space-double);
+    --comment-max: 70ch;
 
-  display: flex;
-  flex-direction: column;
-  padding-inline: var(--inline-space);
-  place-items: center;
-  text-align: center;
-
-  @media (min-width: 150ch) {
-    padding-inline: calc(var(--tray-size) + var(--inline-space) * 1.5);
-  }
-}
-
-.comments__subscribers {
-  max-inline-size: var(--comment-max);
-  padding-inline: calc(var(--comment-padding-block) + var(--inline-space-double));
-}
-
-.comment {
-  margin-inline: auto;
-  max-inline-size: var(--comment-max);
-  position: relative;
-
-  house-md-toolbar {
-    margin-block-start: calc(var(--comment-padding-block) * -0.5);
-  }
-
-  .house-md-content {
-    padding: var(--comment-padding-block) 0 0;
-  }
-}
-
-.comment__author {
-  .btn {
-    font-weight: inherit;
-  }
-}
-
-.comment__avatar {
-  margin: calc(var(--comment-padding-block) * 0.5) calc(var(--comment-padding-inline) * -0.75);
-  z-index: 0;
-
-  .comment--mine_ & {
-    margin-inline: calc(var(--comment-padding-inline) * -0.75);
-  }
-}
-
-.comment__body {
-  p {
-    &:first-child {
-      margin-block-start: 0;
-    }
-
-    &:last-child {
-      margin-block-end: 0;
-    }
-  }
-}
-
-.comment__content {
-  background-color: var(--color-subtle-light);
-  border-radius: 0.2em;
-  padding: 
-    var(--comment-padding-block) 
-    var(--comment-padding-inline);
-}
-
-.comment__edit {
-  --btn-icon-size: 1.2rem;
-
-  display: none;
-
-  .comment--mine & {
-    display: grid;
-  }
-}
-
-.comment__event {
-  max-inline-size: var(--comment-max);
-
-  &::before {
-    /* Make up space for lack of avatar */
-    content: "";
     display: flex;
-    inline-size: calc(var(--comment-padding-inline) * 0.75);
+    flex-direction: column;
+    padding-inline: var(--inline-space);
+    place-items: center;
+    text-align: center;
+
+    @media (min-width: 150ch) {
+      padding-inline: calc(var(--tray-size) + var(--inline-space) * 1.5);
+    }
   }
-}
 
-.comment__input {
-  --input-border-size: 0;
-  --input-padding: 0;
+  .comments__subscribers {
+    max-inline-size: var(--comment-max);
+    padding-inline: calc(var(--comment-padding-block) + var(--inline-space-double));
+  }
 
-  min-block-size: calc(9lh + (2 * var(--comment-padding-block)));
-  min-inline-size: 100%;
+  .comment {
+    margin-inline: auto;
+    max-inline-size: var(--comment-max);
+    position: relative;
 
-  @supports (field-sizing: content) {
-    field-sizing: content;
+    house-md-toolbar {
+      margin-block-start: calc(var(--comment-padding-block) * -0.5);
+    }
+
+    .house-md-content {
+      padding: var(--comment-padding-block) 0 0;
+    }
+  }
+
+  .comment__author {
+    .btn {
+      font-weight: inherit;
+    }
+  }
+
+  .comment__avatar {
+    margin: calc(var(--comment-padding-block) * 0.5) calc(var(--comment-padding-inline) * -0.75);
+    z-index: 0;
+
+    .comment--mine_ & {
+      margin-inline: calc(var(--comment-padding-inline) * -0.75);
+    }
+  }
+
+  .comment__body {
+    p {
+      &:first-child {
+        margin-block-start: 0;
+      }
+
+      &:last-child {
+        margin-block-end: 0;
+      }
+    }
+  }
+
+  .comment__content {
+    background-color: var(--color-subtle-light);
+    border-radius: 0.2em;
+    padding:
+      var(--comment-padding-block)
+      var(--comment-padding-inline);
+  }
+
+  .comment__edit {
+    --btn-icon-size: 1.2rem;
+
+    display: none;
+
+    .comment--mine & {
+      display: grid;
+    }
+  }
+
+  .comment__event {
+    max-inline-size: var(--comment-max);
+
+    &::before {
+      /* Make up space for lack of avatar */
+      content: "";
+      display: flex;
+      inline-size: calc(var(--comment-padding-inline) * 0.75);
+    }
+  }
+
+  .comment__input {
+    --input-border-size: 0;
+    --input-padding: 0;
+
     min-block-size: calc(9lh + (2 * var(--comment-padding-block)));
+    min-inline-size: 100%;
+
+    @supports (field-sizing: content) {
+      field-sizing: content;
+      min-block-size: calc(9lh + (2 * var(--comment-padding-block)));
+    }
   }
 }

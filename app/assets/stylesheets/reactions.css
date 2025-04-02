@@ -1,88 +1,90 @@
-.reactions {
-  --column-gap: 0.4ch;
-  --reaction-border-color: var(--color-subtle);
-  --row-gap: 0;
+@layer components {
+  .reactions {
+    --column-gap: 0.4ch;
+    --reaction-border-color: var(--color-subtle);
+    --row-gap: 0;
 
-  margin-block-start: calc(var(--block-space-half) / 2);
-  margin-inline: calc(var(--column-gap) / -1);
-}
-
-.reaction {
-  border: 1px solid var(--reaction-border-color);
-  border-radius: 4rem;
-  margin-block-start: calc(var(--block-space-half) / 2);
-  opacity: 1;
-  padding: 0.1em 0.25em 0.1em 0.12em;
-  transition: opacity 100ms ease-in-out, box-shadow 150ms ease-in-out, transform 150ms ease-in-out;
-  
-  .btn {
-    font-size: 0.6em;
-
-    &:is(.reaction__delete) {
-      display: none;
-    
-      .expanded & {
-        display: flex;
-      }
-    }
+    margin-block-start: calc(var(--block-space-half) / 2);
+    margin-inline: calc(var(--column-gap) / -1);
   }
 
-  @media (any-hover: hover) {
-    &:where(:not(:active):hover) {
-      --reaction-border-color: var(--color-subtle-dark);
+  .reaction {
+    border: 1px solid var(--reaction-border-color);
+    border-radius: 4rem;
+    margin-block-start: calc(var(--block-space-half) / 2);
+    opacity: 1;
+    padding: 0.1em 0.25em 0.1em 0.12em;
+    transition: opacity 100ms ease-in-out, box-shadow 150ms ease-in-out, transform 150ms ease-in-out;
+
+    .btn {
+      font-size: 0.6em;
+
+      &:is(.reaction__delete) {
+        display: none;
+
+        .expanded & {
+          display: flex;
+        }
+      }
+    }
+
+    @media (any-hover: hover) {
+      &:where(:not(:active):hover) {
+        --reaction-border-color: var(--color-subtle-dark);
+
+        box-shadow: 0 0 0 var(--hover-size) var(--hover-color);
+      }
+    }
+
+    &:has(.reaction__input):focus-within {
+      --hover-color: var(--color-selected-dark);
+      --reaction-border-color: var(--color-selected-dark);
 
       box-shadow: 0 0 0 var(--hover-size) var(--hover-color);
     }
   }
 
-  &:has(.reaction__input):focus-within {
-    --hover-color: var(--color-selected-dark);
-    --reaction-border-color: var(--color-selected-dark);
+  .btn:is(.reaction__action) {
+    --btn-border-color: var(--reaction-border-color);
 
-    box-shadow: 0 0 0 var(--hover-size) var(--hover-color);
-  }
-}
+    font-size: 0.74em;
+    margin-block-start: calc(var(--block-space-half) / 2);
 
-.btn:is(.reaction__action) {
-  --btn-border-color: var(--reaction-border-color);
-
-  font-size: 0.74em;
-  margin-block-start: calc(var(--block-space-half) / 2);
-
-  @media (any-hover: hover) {
-    &:where(:not(:active):hover) {
-      --reaction-border-color: var(--color-subtle-dark);
+    @media (any-hover: hover) {
+      &:where(:not(:active):hover) {
+        --reaction-border-color: var(--color-subtle-dark);
+      }
     }
   }
-}
 
-.reaction__form {
-  transition: none;
+  .reaction__form {
+    transition: none;
 
-  &.expanded {
-    animation: react 0.2s both;
-    transform: translate3d(0, 0, 0);
+    &.expanded {
+      animation: react 0.2s both;
+      transform: translate3d(0, 0, 0);
+    }
+
+    .reaction__form-label:focus {
+      outline: none;
+    }
   }
 
-  .reaction__form-label:focus {
-    outline: none;
+  .reaction__input {
+    --hover-size: 0;
+    --input-background: transparent;
+    --input-border-size: 0;
+    --input-padding: 0;
+    --outline-size: 0;
+
+    box-shadow: none;
+    display: inherit;
+    max-inline-size: 16ch;
+    min-inline-size: 2em;
+    outline: 0;
   }
-}
 
-.reaction__input {
-  --hover-size: 0;
-  --input-background: transparent;
-  --input-border-size: 0;
-  --input-padding: 0;
-  --outline-size: 0;
-
-  box-shadow: none;
-  display: inherit;
-  max-inline-size: 16ch;
-  min-inline-size: 2em;
-  outline: 0;
-}
-
-.reaction--deleting {
-  animation: scale-fade-out 0.2s both;
+  .reaction--deleting {
+    animation: scale-fade-out 0.2s both;
+  }
 }

@@ -1,45 +1,47 @@
-:is(.dialog) {
-  --backdrop-speed: 150ms;
-  --panel-size: max-content;
-  --speed: 150ms;
+@layer components {
+  :is(.dialog) {
+    --backdrop-speed: 150ms;
+    --panel-size: max-content;
+    --speed: 150ms;
 
-  border: 0;
-  opacity: 0;
-  transform: scale(0.2);
-  transform-origin: top center;
-  transition:
-      display var(--speed) allow-discrete,
-      opacity var(--speed),
-      overlay var(--speed) allow-discrete,
-      transform var(--speed);
-
-  &::backdrop {
-    background-color: var(--color-always-black);
+    border: 0;
     opacity: 0;
-    transform: scale(1);
+    transform: scale(0.2);
+    transform-origin: top center;
     transition:
-      display var(--backdrop-speed) allow-discrete,
-      opacity var(--backdrop-speed),
-      overlay var(--backdrop-speed) allow-discrete;
-  }
-
-  &[open] {
-    opacity: 1;
-    transform: scale(1);
+        display var(--speed) allow-discrete,
+        opacity var(--speed),
+        overlay var(--speed) allow-discrete,
+        transform var(--speed);
 
     &::backdrop {
-      opacity: 0.5;
+      background-color: var(--color-always-black);
+      opacity: 0;
+      transform: scale(1);
+      transition:
+        display var(--backdrop-speed) allow-discrete,
+        opacity var(--backdrop-speed),
+        overlay var(--backdrop-speed) allow-discrete;
     }
-  }
 
-  @starting-style {
     &[open] {
-      opacity: 0;
-      transform: scale(0.2);
+      opacity: 1;
+      transform: scale(1);
+
+      &::backdrop {
+        opacity: 0.5;
+      }
     }
 
-    &[open]::backdrop {
-      opacity: 0;
+    @starting-style {
+      &[open] {
+        opacity: 0;
+        transform: scale(0.2);
+      }
+
+      &[open]::backdrop {
+        opacity: 0;
+      }
     }
   }
 }

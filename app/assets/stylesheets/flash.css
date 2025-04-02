@@ -1,19 +1,21 @@
-.flash {
-  display: flex;
-  inline-size: 100%;
-  inset: var(--block-space) auto auto auto;
-  justify-content: center;
-  position: fixed;
-  z-index: 6;
-}
+@layer components {
+  .flash {
+    display: flex;
+    inline-size: 100%;
+    inset: var(--block-space) auto auto auto;
+    justify-content: center;
+    position: fixed;
+    z-index: 6;
+  }
 
-.flash__inner {
-  animation: appear-then-fade 3s 300ms both;
-  background-color: var(--flash-background, var(--color-ink));
-  border-radius: 4em;
-  color: var(--flash-color, var(--color-ink-reversed));
-  display: inline-flex;
-  font-size: var(--font-size-medium);
-  margin: 0 auto;
-  padding: 0.7em 1.4em;
+  .flash__inner {
+    animation: appear-then-fade 3s 300ms both;
+    background-color: var(--flash-background, var(--color-ink));
+    border-radius: 4em;
+    color: var(--flash-color, var(--color-ink-reversed));
+    display: inline-flex;
+    font-size: var(--font-size-medium);
+    margin: 0 auto;
+    padding: 0.7em 1.4em;
+  }
 }

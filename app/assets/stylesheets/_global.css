@@ -1,4 +1,28 @@
+/* This file should be imported first to set the cascade layer precendence */
+@layer reset, base, components, modules, utilities;
+
 :root {
+  /* Text */
+  --text-xx-small: 0.55rem;
+  --text-x-small: 0.7rem;
+  --text-small: 0.8rem;
+  --text-normal: 1rem;
+  --text-medium: 1.1rem;
+  --text-large: 1.5rem;
+  --text-x-large: 1.8rem;
+  --text-xx-large: 2.5rem;
+
+  /* Spacing */
+  --inline-space: 1ch;
+  --inline-space-half: calc(var(--inline-space) / 2);
+  --inline-space-double: calc(var(--inline-space) * 2);
+  --block-space: 1rem;
+  --block-space-half: calc(var(--block-space) / 2);
+  --block-space-double: calc(var(--block-space) * 2);
+
+  /* Components */
+  --btn-size: 2.65em;
+
   /* Named color values */
   --lch-black: 27.13% 0.1035 284.77;
   --lch-white: 100% 0 0;
@@ -36,7 +60,7 @@
   --color-always-white: oklch(var(--lch-always-white));
   --color-container: oklch(var(--lch-light-blue));
 
-  /* Redefine named color values for dark mode */
+  /* Dark mode */
   @media (prefers-color-scheme: dark) {
     --lch-black: 100% 0 0;
     --lch-white: 0% 0 0;
@@ -51,41 +75,5 @@
     --lch-green-light: 28.11% 0.02 142.49;
     --lch-yellow: 40.9% 0.06 88.9;
     --lch-light-blue: 20.62% 0.048 216.62;
-  }
-}
-
-.color-picker {
-  --panel-border-color: var(--bubble-color);
-  --panel-border-radius: 2em;
-  --panel-border-size: 2px;
-  --panel-padding: 0.5em 0.7em;
-  --panel-size: auto;
-
-  inline-size: auto !important;
-  inset: 0 auto auto 0;
-  max-inline-size: var(--panel-size) !important;
-  position: absolute;
-  z-index: 2;
-
-  &[open] {
-    display: flex;
-  }
-
-  .color-picker__color {
-    --btn-size: 2em;
-  }
-}
-
-.color-picker__button {
-  font-size: 0.75em;
-
-  .cards & {
-    display: none;
-  }
-
-  + .panel {
-    --panel-size: auto;
-
-    inset: 0 0 auto auto;
   }
 }

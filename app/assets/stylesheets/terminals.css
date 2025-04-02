@@ -1,56 +1,58 @@
-.terminal {
-  --row-gap: 0.2lh;
+@layer components {
+  .terminal {
+    --row-gap: 0.2lh;
 
-  background-color: var(--color-ink);
-  color: var(--color-positive);
-  font-family: var(--font-mono);
-  font-size: var(--text-normal);
-  inset: auto 0 0 0;
-  padding: var(--block-space) calc(var(--tray-size) + var(--inline-space) * 3);
-  position: fixed;
-  z-index: 1;
+    background-color: var(--color-ink);
+    color: var(--color-positive);
+    font-family: var(--font-mono);
+    font-size: var(--text-normal);
+    inset: auto 0 0 0;
+    padding: var(--block-space) calc(var(--tray-size) + var(--inline-space) * 3);
+    position: fixed;
+    z-index: 1;
 
-  @media (prefers-color-scheme: dark) {
-    background-color: var(--color-always-black);
-    border-block-start: 1px solid var(--color-subtle-dark);
-  }
-
-  .terminal__input {
-    --input-border-color: transparent;
-    --input-border-radius: 0.3em;
-    --hover-color: transparent;
-    --input-color: var(--color-positive);
-    --outline-size: 0;
-    --outline-color: transparent;
-    
-    accent-color: var(--color-positive);
-    caret-color: var(--color-positive);
-    font-family: inherit;
-
-    &::placeholder {
-      color: var(--color-always-white);
-      opacity: 0.5;
+    @media (prefers-color-scheme: dark) {
+      background-color: var(--color-always-black);
+      border-block-start: 1px solid var(--color-subtle-dark);
     }
 
-    .terminal__link & {
-      color: var(--color-always-white);
-      opacity: 0.5;
+    .terminal__input {
+      --input-border-color: transparent;
+      --input-border-radius: 0.3em;
+      --hover-color: transparent;
+      --input-color: var(--color-positive);
+      --outline-size: 0;
+      --outline-color: transparent;
+
+      accent-color: var(--color-positive);
+      caret-color: var(--color-positive);
+      font-family: inherit;
+
+      &::placeholder {
+        color: var(--color-always-white);
+        opacity: 0.5;
+      }
+
+      .terminal__link & {
+        color: var(--color-always-white);
+        opacity: 0.5;
+      }
     }
   }
-}
 
-.terminal__link {
-  --hover-size: 0;
+  .terminal__link {
+    --hover-size: 0;
 
-  color: var(--color-positive);
-}
+    color: var(--color-positive);
+  }
 
-.terminal__menu {
-  display: none;
-  list-style: none;
-  transition: display 1000ms allow-discrete;
+  .terminal__menu {
+    display: none;
+    list-style: none;
+    transition: display 1000ms allow-discrete;
 
-  .terminal--open & {
-    display: flex;
+    .terminal--open & {
+      display: flex;
+    }
   }
 }

@@ -1,99 +1,101 @@
-.comments {
-  :where(h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6) {
-    font-weight: 800;
-    hyphens: auto;
-    letter-spacing: -0.02ch;
-    line-height: 1.1;
-    margin-block: 0;
-    overflow-wrap: break-word;
-    text-wrap: balance;
-  }
-  
-  :where(h1, h2, h3, h4, h5, h6) { display: block; }
-  :where(h1, h2, h3, h4, h5, h6) { margin-block: 0.65em; }
-  
-  :is(h1, .h1) { font-size: 2em; }  
-  :is(h2, .h2) { font-size: 1.5em; }  
-  :is(h3, .h3) { font-size: 1.17em; }  
-  :is(h4, .h4) { font-size: 1em; }  
-  :is(h5, .h5) { font-size: 0.83em; }  
-  :is(h6, .h6) { font-size: 0.67em; }  
+@layer components {
+  .comments {
+    :where(h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6) {
+      font-weight: 800;
+      hyphens: auto;
+      letter-spacing: -0.02ch;
+      line-height: 1.1;
+      margin-block: 0;
+      overflow-wrap: break-word;
+      text-wrap: balance;
+    }
 
-  :where(p, ul, ol, dl, blockquote, pre, figure, table, hr) {
-    margin-block: 0.65lh;
-    overflow-wrap: break-word;
-    text-wrap: pretty;
-  }
-  
-  :where(hr) {
-    border-color: var(--color-subtle-dark);
-    border-style: var(--border-style, solid) none none;
-    margin: 2lh auto;
-  }
-  
-  :where(strong) {
-    font-weight: 700;
-  }
-  
-  :is(pre, code, .pre, .code) {
-    background-color: var(--color-subtle-light);
-    border: 1px solid var(--color-subtle);
-    border-radius: 0.3em;
-    font-family: var(--font-mono);
-    font-size: 0.85em;
-  }
-  
-  :is(pre) {
-    overflow-x: auto;
-    /* text-wrap: nowrap; */
-  }
-  
-  :where(code) {
-    padding: 0.1em 0.3em;
-  }
-  
-  :is(pre, .pre) {
-    border-radius: 0.5em;
-    padding: 0.5lh 2ch;
-  
-    :is(code, .code) {
-      background-color: transparent;
-      border: 0;
-      font-size: 1em;
-      padding: 0;
+    :where(h1, h2, h3, h4, h5, h6) { display: block; }
+    :where(h1, h2, h3, h4, h5, h6) { margin-block: 0.65em; }
+
+    :is(h1, .h1) { font-size: 2em; }
+    :is(h2, .h2) { font-size: 1.5em; }
+    :is(h3, .h3) { font-size: 1.17em; }
+    :is(h4, .h4) { font-size: 1em; }
+    :is(h5, .h5) { font-size: 0.83em; }
+    :is(h6, .h6) { font-size: 0.67em; }
+
+    :where(p, ul, ol, dl, blockquote, pre, figure, table, hr) {
+      margin-block: 0.65lh;
+      overflow-wrap: break-word;
+      text-wrap: pretty;
     }
-  }
-  
-  :where(p) {
-    hyphens: auto;
-    letter-spacing: -0.005ch;
-  }
-  
-  :is(blockquote, .quote) {
-    font-style: italic;
-    margin: 0 3ch;
-  
-    :is(p) {
-      hyphens: none;
+
+    :where(hr) {
+      border-color: var(--color-subtle-dark);
+      border-style: var(--border-style, solid) none none;
+      margin: 2lh auto;
     }
-  }
-  
-  :where(table, th, td) {
-    border: 1px solid var(--color-subtle-dark);
-  }
-  
-  :where(table) {
-    border-collapse: collapse;
-    margin: 1lh 0;
-  }
-  
-  :where(th, td) {
-    padding: 0.2lh 1ch;
-    text-align: start;
-  }
-  
-  :where(th) {
-    border-block-end-width: 3px;
-    font-weight: 700;
+
+    :where(strong) {
+      font-weight: 700;
+    }
+
+    :is(pre, code, .pre, .code) {
+      background-color: var(--color-subtle-light);
+      border: 1px solid var(--color-subtle);
+      border-radius: 0.3em;
+      font-family: var(--font-mono);
+      font-size: 0.85em;
+    }
+
+    :is(pre) {
+      overflow-x: auto;
+      /* text-wrap: nowrap; */
+    }
+
+    :where(code) {
+      padding: 0.1em 0.3em;
+    }
+
+    :is(pre, .pre) {
+      border-radius: 0.5em;
+      padding: 0.5lh 2ch;
+
+      :is(code, .code) {
+        background-color: transparent;
+        border: 0;
+        font-size: 1em;
+        padding: 0;
+      }
+    }
+
+    :where(p) {
+      hyphens: auto;
+      letter-spacing: -0.005ch;
+    }
+
+    :is(blockquote, .quote) {
+      font-style: italic;
+      margin: 0 3ch;
+
+      :is(p) {
+        hyphens: none;
+      }
+    }
+
+    :where(table, th, td) {
+      border: 1px solid var(--color-subtle-dark);
+    }
+
+    :where(table) {
+      border-collapse: collapse;
+      margin: 1lh 0;
+    }
+
+    :where(th, td) {
+      padding: 0.2lh 1ch;
+      text-align: start;
+    }
+
+    :where(th) {
+      border-block-end-width: 3px;
+      font-weight: 700;
+    }
   }
 }

@@ -1,65 +1,67 @@
-.workflow-stage {
-  --btn-background: transparent;
-  --btn-padding: 0.2em 0.5em;
-  --btn-border-size: 0;
-  --btn-border-radius: 0.2em;
-  --hover-size: 0;
+@layer components {
+  .workflow-stage {
+    --btn-background: transparent;
+    --btn-padding: 0.2em 0.5em;
+    --btn-border-size: 0;
+    --btn-border-radius: 0.2em;
+    --hover-size: 0;
 
-  color: inherit;
-  text-transform: uppercase;
+    color: inherit;
+    text-transform: uppercase;
 
-  @media (hover: hover) {
-    &:hover {
-      background-color: color(from var(--bubble-color) srgb r g b / 0.15);
+    @media (hover: hover) {
+      &:hover {
+        background-color: color(from var(--bubble-color) srgb r g b / 0.15);
+      }
+    }
+
+    .bubbles-list & {
+      display: none;
     }
   }
 
-  .bubbles-list & {
-    display: none;
-  }
-}
+  .workflow-stage--current {
+    --btn-background: var(--bubble-color);
 
-.workflow-stage--current {
-  --btn-background: var(--bubble-color);
-
-  color: var(--color-ink-reversed);
-
-  @media (hover: hover) {
-    &:hover {
-      background-color: color(from var(--bubble-color) srgb r g b / 0.65);
-    }
-  }
-
-  .ticket & {
-    --btn-background: var(--color-ink);
-
-    background: var(--bubble-color);
-    border-radius: 0.2em;
     color: var(--color-ink-reversed);
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: color(from var(--bubble-color) srgb r g b / 0.65);
+      }
+    }
+
+    .ticket & {
+      --btn-background: var(--color-ink);
+
+      background: var(--bubble-color);
+      border-radius: 0.2em;
+      color: var(--color-ink-reversed);
+    }
+
+    .bubbles-list & {
+      display: flex;
+      background: transparent;
+      border-radius: 0.2em;
+      color: var(--color-ink);
+      padding: 0;
+      border: 0;
+    }
   }
 
-  .bubbles-list & {
-    display: flex;
-    background: transparent;
-    border-radius: 0.2em;
-    color: var(--color-ink);
-    padding: 0;
-    border: 0;
+  .workflow__popup {
+    --panel-border-radius: 0.5em;
+    --panel-padding: 0.5em;
+    --panel-size: 100%;
+
+    inline-size: auto !important;
+    inset: 0 auto auto 0;
+    margin-block-start: 1lh;
+    margin-inline-start: calc((var(--panel-padding) + 0.7em) * -1);
+    min-inline-size: 12ch;
+    max-inline-size: var(--panel-size) !important;
+    position: absolute;
+    transform-origin: top left;
+    z-index: 1;
   }
-}
-
-.workflow__popup {
-  --panel-border-radius: 0.5em;
-  --panel-padding: 0.5em;
-  --panel-size: 100%;
-
-  inline-size: auto !important;
-  inset: 0 auto auto 0;
-  margin-block-start: 1lh;
-  margin-inline-start: calc((var(--panel-padding) + 0.7em) * -1);
-  min-inline-size: 12ch;
-  max-inline-size: var(--panel-size) !important;
-  position: absolute;
-  transform-origin: top left;
-  z-index: 1;
 }

@@ -1,8 +1,10 @@
 @layer components {
-  .tag-picker {
+  .color-picker {
+    --panel-border-color: var(--bubble-color);
     --panel-border-radius: 2em;
+    --panel-border-size: 2px;
     --panel-padding: 0.5em 0.7em;
-    --panel-size: max-content;
+    --panel-size: auto;
 
     inline-size: auto !important;
     inset: 0 auto auto 0;
@@ -14,19 +16,22 @@
       display: flex;
     }
 
-    .input {
-      --input-padding: 0.2em 0.5em;
-
-      inline-size: 18ch;
+    .color-picker__color {
+      --btn-size: 2em;
     }
   }
 
-  .tag-picker__button {
-    font-size: 0.7em;
-    margin-inline-start: 0.5em;
+  .color-picker__button {
+    font-size: 0.75em;
+
+    .cards & {
+      display: none;
+    }
 
     + .panel {
-      --panel-size: 18ch;
+      --panel-size: auto;
+
+      inset: 0 0 auto auto;
     }
   }
 }

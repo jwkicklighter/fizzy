@@ -1,192 +1,190 @@
-:root {
-  --btn-size: 2.65em;
-}
+@layer components {
+  .btn {
+    --transition: 300ms ease;
+    --btn-border-radius: 2em;
 
-.btn {
-  --transition: 300ms ease;
-  --btn-border-radius: 2em;
+    align-items: center;
+    background-color: var(--btn-background, var(--color-bg));
+    border-radius: var(--btn-border-radius);
+    border: var(--btn-border-size, 1px) solid var(--btn-border-color, var(--color-subtle-dark));
+    color: var(--btn-color, var(--color-ink));
+    cursor: pointer;
+    display: inline-flex;
+    font-size: 1em;
+    font-weight: var(--btn-font-weight, 600);
+    gap: var(--btn-gap, 0.5em);
+    justify-content: center;
+    padding: var(--btn-padding, 0.5em 1.1em);
+    pointer-events: auto;
+    transition:
+      background-color var( --transition),
+      border var( --transition),
+      color var( --transition),
+      filter var( --transition),
+      opacity var( --transition),
+      scale var( --transition);
 
-  align-items: center;
-  background-color: var(--btn-background, var(--color-bg));
-  border-radius: var(--btn-border-radius);
-  border: var(--btn-border-size, 1px) solid var(--btn-border-color, var(--color-subtle-dark));
-  color: var(--btn-color, var(--color-ink));
-  cursor: pointer;
-  display: inline-flex;
-  font-size: 1em;
-  font-weight: var(--btn-font-weight, 600);
-  gap: var(--btn-gap, 0.5em);
-  justify-content: center;
-  padding: var(--btn-padding, 0.5em 1.1em);
-  pointer-events: auto;
-  transition:
-    background-color var( --transition),
-    border var( --transition),
-    color var( --transition),
-    filter var( --transition),
-    opacity var( --transition),
-    scale var( --transition);
+    /* Default icon styles */
+    &:where(:has(.icon)) {
+      text-align: start;
 
-  /* Default icon styles */
-  &:where(:has(.icon)) {
-    text-align: start;
-
-    .icon {
-      --icon-size: var(--btn-icon-size, 1.3em);
-    }
-  }
-
-  &:where(.avatar) {
-    --btn-border-radius: var(--avatar-border-radius);
-    --btn-padding: 0;
-    --btn-border-size: 0;
-    --hover-size: 0;
-
-    aspect-ratio: 1;
-    block-size: var(--btn-size);
-    display: grid;
-    inline-size: var(--btn-size);
-    justify-content: unset;
-    place-items: center;
-
-    > * {
-      grid-area: 1/1;
-    }
-
-    img {
-      --icon-size: 100%;
-      block-size: 100%;
-      inline-size: 100%;
-      max-inline-size: unset;
-    }
-
-    @media (any-hover: hover) {
-      &:where(:not(:active):hover) {
-        filter: brightness(0.7);
+      .icon {
+        --icon-size: var(--btn-icon-size, 1.3em);
       }
     }
-  }
 
-  /* Circle buttons */
-  &.btn--circle,
-  &:where(:has(.for-screen-reader):has(.icon)) {
-    --btn-border-radius: 50%;
-    --btn-padding: 0;
-
-    aspect-ratio: 1;
-    block-size: var(--btn-size);
-    display: grid;
-    inline-size: var(--btn-size);
-    place-items: center;
-
-    > * {
-      grid-area: 1/1;
-    }
-  }
-
-  /* With radios and checkboxes */
-  &:has(input[type=radio]),
-  &:has(input[type=checkbox]) {
-    position: relative;
-
-    :is(input[type=radio]),
-    :is(input[type=checkbox]) {
+    &:where(.avatar) {
+      --btn-border-radius: var(--avatar-border-radius);
+      --btn-padding: 0;
+      --btn-border-size: 0;
       --hover-size: 0;
 
-      appearance: none;
-      border-radius: var(--btn-border-radius);
-      cursor: pointer;
-      display: flex;
-      inset: 0;
-      margin: 0;
-      padding: 0;
-      position: absolute;
+      aspect-ratio: 1;
+      block-size: var(--btn-size);
+      display: grid;
+      inline-size: var(--btn-size);
+      justify-content: unset;
+      place-items: center;
+
+      > * {
+        grid-area: 1/1;
+      }
+
+      img {
+        --icon-size: 100%;
+        block-size: 100%;
+        inline-size: 100%;
+        max-inline-size: unset;
+      }
+
+      @media (any-hover: hover) {
+        &:where(:not(:active):hover) {
+          filter: brightness(0.7);
+        }
+      }
     }
 
-    .checked {
+    /* Circle buttons */
+    &.btn--circle,
+    &:where(:has(.for-screen-reader):has(.icon)) {
+      --btn-border-radius: 50%;
+      --btn-padding: 0;
+
+      aspect-ratio: 1;
+      block-size: var(--btn-size);
+      display: grid;
+      inline-size: var(--btn-size);
+      place-items: center;
+
+      > * {
+        grid-area: 1/1;
+      }
+    }
+
+    /* With radios and checkboxes */
+    &:has(input[type=radio]),
+    &:has(input[type=checkbox]) {
+      position: relative;
+
+      :is(input[type=radio]),
+      :is(input[type=checkbox]) {
+        --hover-size: 0;
+
+        appearance: none;
+        border-radius: var(--btn-border-radius);
+        cursor: pointer;
+        display: flex;
+        inset: 0;
+        margin: 0;
+        padding: 0;
+        position: absolute;
+      }
+
+      .checked {
+        display: none;
+      }
+    }
+
+    &:has(input:checked)  {
+      --btn-background: var(--color-ink);
+      --btn-color: var(--color-ink-reversed);
+      --outline-color: var(--color-ink);
+
+      .checked {
+        display: block;
+      }
+    }
+
+    &[disabled],
+    &:has([disabled]),
+    [disabled] &[type=submit],
+    &[type=submit]:disabled {
+      cursor: not-allowed;
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    @media print {
       display: none;
     }
   }
 
-  &:has(input:checked)  {
-    --btn-background: var(--color-ink);
+  /* Variants */
+  .btn--link {
+    --btn-background: var(--color-link);
     --btn-color: var(--color-ink-reversed);
-    --outline-color: var(--color-ink);
-
-    .checked {
-      display: block;
-    }
+    --outline-color: var(--color-link);
   }
 
-  &[disabled],
-  &:has([disabled]),
-  [disabled] &[type=submit],
-  &[type=submit]:disabled {
-    cursor: not-allowed;
-    opacity: 0.3;
+  .btn--negative {
+    --btn-background: var(--color-negative);
+    --btn-color: var(--color-ink-reversed);
+    --outline-color: var(--color-negative);
+  }
+
+  .btn--placeholder {
     pointer-events: none;
+    visibility: hidden;
   }
 
-  @media print {
-    display: none;
+  .btn--plain {
+    --btn-border-radius: 0.5em;
+    --btn-border-size: 0;
+    --btn-icon-size: 100%;
+    --btn-padding: 0;
+    --hover-size: 0;
+    --outline-size: 0;
   }
-}
 
-/* Variants */
-.btn--link {
-  --btn-background: var(--color-link);
-  --btn-color: var(--color-ink-reversed);
-  --outline-color: var(--color-link);
-}
+  .btn--positive {
+    --btn-background: var(--color-positive);
+    --btn-color: var(--color-ink-reversed);
+    --outline-color: var(--color-positive);
+  }
 
-.btn--negative {
-  --btn-background: var(--color-negative);
-  --btn-color: var(--color-ink-reversed);
-  --outline-color: var(--color-negative);
-}
+  .btn--remove {
+    --btn-icon-size: 0.7em;
+  }
 
-.btn--placeholder {
-  pointer-events: none;
-  visibility: hidden;
-}
+  .btn--reversed {
+    --btn-background: var(--color-ink);
+    --btn-color: var(--color-bg);
+    --outline-color: var(--color-ink);
+  }
 
-.btn--plain {
-  --btn-border-radius: 0.5em;
-  --btn-border-size: 0;
-  --btn-icon-size: 100%;
-  --btn-padding: 0;
-  --hover-size: 0;
-  --outline-size: 0;
-}
+  :is(.btn--link, .btn--negative, .btn--positive, .btn--reversed) {
+    --btn-border-color: var(--color-bg);
+  }
 
-.btn--positive {
-  --btn-background: var(--color-positive);
-  --btn-color: var(--color-ink-reversed);
-  --outline-color: var(--color-positive);
-}
+  .btn--small {
+    font-size: 0.8em;
+  }
 
-.btn--remove {
-  --btn-icon-size: 0.7em;
-}
+  .btn--success {
+    animation: success 1s ease-out;
 
-.btn--reversed {
-  --btn-background: var(--color-ink);
-  --btn-color: var(--color-bg);
-  --outline-color: var(--color-ink);
-}
-
-:is(.btn--link, .btn--negative, .btn--positive, .btn--reversed) {
-  --btn-border-color: var(--color-bg);
-}
-
-.btn--small {
-  font-size: 0.8em;
-}
-
-.btn--success {
-  animation: success 1s ease-out;
-
-  .icon {
-    animation: zoom-fade 300ms ease-out;
+    .icon {
+      animation: zoom-fade 300ms ease-out;
+    }
   }
 }
