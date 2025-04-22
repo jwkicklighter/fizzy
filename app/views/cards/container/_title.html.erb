@@ -10,7 +10,7 @@
     </div>
   <% end %>
 <% else %>
-  <%= form_with model: card, url: collection_card_path(card.collection, card), id: "card_form", class: "card__content", data: { controller: "auto-save" } do |form| %>
+  <%= form_with model: card, url: collection_card_path(card.collection, card), id: "card_form", class: "card__content", data: { controller: "paste auto-save" } do |form| %>
     <h1 class="card__title">
       <%= form.text_area :title, placeholder: "Name it…",
             class: "input input--textarea full-width borderless txt-align-start",
