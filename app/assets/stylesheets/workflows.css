@@ -29,11 +29,11 @@
   }
 
   .workflow-preview {
-    --border-size: 3px;
+    --border-size: 0.2em;
 
     aspect-ratio: 1;
     flex: 1 1 30%;
-    max-inline-size: 33%;
+    max-inline-size: 30%;
 
     button {
       --hover-size: 0;
@@ -51,6 +51,7 @@
       margin: 0;
       max-inline-size: 100%;
       outline: 0;
+      overflow: hidden;
       padding: 1em;
       text-align: start;
     }
