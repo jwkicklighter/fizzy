@@ -34,7 +34,7 @@ module Card::Closeable
   end
 
   def closing_soon?
-    considering? && Time.current >= auto_close_at - AUTO_CLOSE_REMINDER_BEFORE
+    considering? && auto_closing? && Time.current >= auto_close_at - AUTO_CLOSE_REMINDER_BEFORE
   end
 
   def closed?
