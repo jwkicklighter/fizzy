@@ -29,8 +29,8 @@ class Command::ChatQuery < Command
         Fizzy data includes cards and comments contained in those. A card can represent an issue, a feature,
         a bug, a task, etc.
  
-        ## Current view:
-        
+        ## Current context:
+
         The user is currently #{context.viewing_card_contents? ? 'inside a card' : 'viewing a list of cards' }.
 
         ## Supported commands:
@@ -44,7 +44,7 @@ class Command::ChatQuery < Command
         - Search cards based on certain keywords: /search. It supports the following parameters:
           * assignment_status: can be "unassigned". Only include if asking for unassigned cards explicitly
           * indexed_by: can be "newest", "oldest", "latest", "stalled", "closed"
-          * engagement_status: can be "considering" or "doing"
+          * engagement_status: can be "considering" or "doing".
           * card_ids: a list of card ids
           * assignee_ids: a list of assignee names
           * creator_id: the name of a person
@@ -54,7 +54,22 @@ class Command::ChatQuery < Command
           * terms: a list of terms to search for. Use this option to refine searches based on further keyword*based
              queries.
 
-        So each command will be a JSON object like:
+        ## How to translate requests into commands
+
+        1. Determine if you have the right context based on the "current context":
+          - If it is is "inside a card", assume you are in the right context unless the
+            query is clearly referring to a different set of cards.
+          - If it is "viewing a list of cards", consider emitting a /search command to filter the cards.
+
+        2. Create the sequence of commands to satisfy the user's request.
+          - If the request is just about finding some cards, a /search command is enough.
+          - If the request is about answering some question about cards, add an /insight command.
+          - If the request requires acting on cards, add the sequence of commands that satisfy those. You can combine
+            all of them except /search and /insight, which have an special consideration.
+
+       ## JSON format
+
+        Each command will be a JSON object like:
 
         { command: "/close" }
 
@@ -62,58 +77,14 @@ class Command::ChatQuery < Command
 
         { command: "/search", indexed_by: "closed", collection_ids: [ "Writebook", "Design" ] }
 
-        For example, to assign a card, you invoke `assign kevin`. For insight about "something", you invoke "/insight something".
+        The rest of commands will only have a "command" key, nothing else.
 
-        Important:
+        The output will be a single list of JSON objects. Make sure to place values in double quotes and
+        that you generate valid JSON.
 
-        - Don't /search if the current view is inside a card.
-        - Only add an /insight command is there is a specific question about the data.
-        - Don't /search unless there is some search of filtering to do.
-        - When using the /insight command, consider adding first a /search command that filters out the relevant cards to answer.
-        the question. If there are relevant keywords to filter, pass those to /search but avoid passing generic ones. Then, reformulate
-        pass the query itself VERBATIM to /insight as in "/insight <original query>", no additional keys in the JSON.
-        - A response can only contain ONE /search command AT MOST.
-        - A response can only contain ONE /insight command AT MOST.
-        - Unless asking for explicit filtering, always prefer /insight over /search.
-        - There are similar commands to filter and act on cards (e.g: filter by assignee or assign cards). Favor filtering/queries
-        for commands like "cards assigned to someone".
-        - Remove any /search command without params from the generated list of commands.
-        - Consider card, bug, issue interchangeable terms when determining the search scope.
+        # Other
 
-        The current view determines the user's intent. For example, for "summarize performance issues", if the context is viewing
-        the list of cards, the JSON could be:
-
-          [
-            {
-              "command": "/search",
-              "terms": ["performance"]
-            },
-            {
-              "command": "/insight summarize performance issues"
-            }
-          ]
-
-        But if the context is inside a card, the JSON would not include a search command:
-
-          [
-            {
-              "command": "/insight summarize performance issues"
-            }
-          ]
-
-        Please combine commands to satisfy what the user needs. E.g: search with keywords and filters and then apply
-        as many commands as needed. Make sure you don't leave actions mentioned in the query needs unattended.'
-
-        The output will be in JSON. It will contain a list of commands. The commands /tag, /close, /search, /insight and 
-        /assign don't support additional JSON keys, they will only contain the "command:" key". For /search, it can contain additional
-        JSON keys matching the /search params described above.
-
-        Avoid empty preambles like "Based on the provided cards". Be friendly, favor an active voice.
-
-        Make sure to place into double quotes the strings in JSON values and that you generate valid JSON. I want a
-        JSON list like [{}, {}...]
-
-        Respond only with the JSON.
+        * Avoid empty preambles like "Based on the provided cards". Be friendly, favor an active voice.
       PROMPT
     end
 
