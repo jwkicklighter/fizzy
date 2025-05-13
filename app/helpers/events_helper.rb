@@ -1,6 +1,5 @@
 module EventsHelper
-
-  def event_column_info(event_type, day_timeline)
+  def event_columns(event_type, day_timeline)
     case event_type
     when "added"
       events = day_timeline.events.where(action: "card_published")
@@ -20,16 +19,10 @@ module EventsHelper
       {
         title: "Updated",
         index: 2,
-        events: day_timeline.events.where.not(action: ["card_published", "card_closed"])
+        events: day_timeline.events.where.not(action: [ "card_published", "card_closed" ])
       }
     end
   end
-
-
-
-
-
-
 
   def event_column(event)
     case event.action
@@ -52,27 +45,6 @@ module EventsHelper
       tag.div id: "next_page",
         data: { controller: "fetch-on-visible", fetch_on_visible_url_value: events_days_path(day: next_day.strftime("%Y-%m-%d")) }
     end
-  end
-
-  def render_event_grid_cells(columns: 4, rows: 24)
-    safe_join((2..rows + 1).map do |row|
-      (1..columns).map do |col|
-        tag.div class: class_names("event__grid-item"), style: "grid-area: #{row}/#{col};"
-      end
-    end.flatten)
-  end
-
-  def render_column_headers(day_timeline)
-    headers = {
-      "Added" => day_timeline.events.where(action: "card_published").count,
-      "Updated" => nil,
-      "Closed" => day_timeline.events.where(action: "card_closed").count
-    }
-
-    headers.map do |header, count|
-      title = count&.positive? ? "#{header} (#{count})" : header
-      content_tag(:h3, title, class: "event__grid-column-title position-sticky")
-    end.join.html_safe
   end
 
   def event_action_sentence(event)

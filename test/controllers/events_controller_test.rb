@@ -11,7 +11,7 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
   test "index" do
     get events_path
 
-    assert_select "ul.event__time-block[style='grid-area: 17/2']" do
+    assert_select "ul.events__time-block[style='grid-area: 17/2']" do
       assert_select "strong", text: "David assigned JZ to Layout is broken"
     end
   end
@@ -21,7 +21,7 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
 
     get events_path
 
-    assert_select "ul.event__time-block[style='grid-area: 22/2']" do
+    assert_select "ul.events__time-block[style='grid-area: 22/2']" do
       assert_select "strong", text: "David assigned JZ to Layout is broken"
     end
   end
