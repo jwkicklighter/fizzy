@@ -15,7 +15,7 @@ class CommandsController < ApplicationController
         respond_with_needs_confirmation(command)
       end
     else
-      head :unprocessable_entity
+      respond_with_error
     end
   end
 
@@ -55,9 +55,11 @@ class CommandsController < ApplicationController
       if confirmed?(command)
         if result.has_context_url? && params["redirected"].blank?
           respond_with_needs_redirection redirect_to: result.context_url
-        else
+        elsif command.valid?
           chat_response_result = command.execute
           respond_with_execution_result chat_response_result
+        else
+          respond_with_error
         end
       else
         respond_with_needs_confirmation(command.commands, redirect_to: result.context_url)
@@ -80,5 +82,9 @@ class CommandsController < ApplicationController
 
     def respond_with_insight_response(chat_response)
       render json: { message: chat_response.content }, status: :accepted
+    end
+
+    def respond_with_error
+      head :unprocessable_entity
     end
 end

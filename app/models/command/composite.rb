@@ -28,6 +28,10 @@ class Command::Composite
     commands.any?(&:needs_confirmation?)
   end
 
+  def valid?
+    commands.all?(&:valid?)
+  end
+
   private
     def undoable_commands
       commands.filter(&:undoable?)
