@@ -3,7 +3,7 @@ import { HttpStatus } from "helpers/http_helpers"
 import { marked } from "marked"
 
 export default class extends Controller {
-  static targets = [ "input", "form", "output", "confirmation" ]
+  static targets = [ "input", "form", "output", "confirmation", "recentCommands" ]
   static classes = [ "error", "confirmation", "help", "output", "busy" ]
   static values = { originalInput: String, waitingForConfirmation: Boolean }
 
@@ -89,6 +89,7 @@ export default class extends Controller {
         this.#handleJsonResponse(responseJson)
       })
     }
+    this.recentCommandsTarget.reload()
     this.#reset()
   }
 

@@ -10,7 +10,7 @@
         terminal_busy_class: "terminal--busy",
         toggle_class_toggle_class: "terminal--open",
         action: "keydown->terminal#handleKeyPress keydown->navigable-list#navigate focusin->navigable-list#select keydown.esc->toggle-class#remove:stop keydown.esc->terminal#focus keydown.esc->navigable-list#selectLast keydown.esc@document->terminal#hideMenus" } do %>
-  <%= turbo_frame_tag :recent_commands, src: commands_path, refresh: "morph" %>
+  <%= turbo_frame_tag :recent_commands, src: commands_path, data: { terminal_target: "recentCommands" } %>
 
   <%= render "commands/form" %>
 <% end %>

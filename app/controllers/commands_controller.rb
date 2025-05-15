@@ -56,7 +56,11 @@ class CommandsController < ApplicationController
 
     def respond_with_composite_response(results)
       json = results.map(&:as_json).grep(Hash).reduce({}, :merge)
-      render json: json, status: :accepted
+      if json.empty?
+        redirect_back_or_to root_path
+      else
+        render json: json, status: :accepted
+      end
     end
 
     def respond_with_insight_response(chat_response)

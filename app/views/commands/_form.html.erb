@@ -9,14 +9,12 @@
   <label class="terminal__label txt-nowrap" for="fizzy_do">Fizzy do &gt;</label>
 
   <%= text_field_tag "command", nil,
-        id: "terminal_input",
         autocomplete: "off",
         autocorrect: "off",
         autocapitalize: "off",
         class: "terminal__input input fill-transparent unpad",
         data: {
           terminal_target: "input",
-          turbo_permanent: true,
           action: "keydown.up->toggle-class#add:prevent keydown.up->navigable-list#selectCurrentOrLast terminal#hideError"
         },
         placeholder: "Press ⌘+K to search or type /commands…",
