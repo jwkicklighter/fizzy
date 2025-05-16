@@ -20,7 +20,7 @@ class Command::Ai::Translator
     end
 
     def cache_key_for(query)
-      "command_translator:#{user.id}:#{query}:#{context_description}"
+      "command_translator:#{user.id}:#{query}:#{current_view_description}"
     end
 
     def chat
@@ -145,11 +145,11 @@ class Command::Ai::Translator
 
         ## Current view:
 
-        The user is currently #{context_description} }.
+        The user is currently #{current_view_description} }.
       PROMPT
     end
 
-    def context_description
+    def current_view_description
       if context.viewing_card_contents?
         "inside a card"
       elsif context.viewing_list_of_cards?
