@@ -29,6 +29,12 @@ Card.find_each(&:refresh_search_embedding)
 Comment.find_each(&:refresh_search_embedding)
 ```
 
+### Tests
+
+For testing OpenAI API requests, we use [VCR](https://github.com/vcr/vcr). If you want to test AI features exercising the API, you need to place the `config/credentials/test.key`
+that you can get from 1Password in "Fizzy - test.key". Then, when running tests that use Open AI API, you must either set the env variable VCR_RECORD=1
+or to add `vcr_record!` to the test. See `VcrTestHelper`.
+
 ## Running tests
 
 For fast feedback loops, unit tests can be run with:
