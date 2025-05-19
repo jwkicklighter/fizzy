@@ -4,6 +4,10 @@
       position: relative;
       z-index: 1;
     }
+
+    .btn {
+      --btn-border-color: var(--color-ink-medium);
+    }
   }
 
   .filter__button {

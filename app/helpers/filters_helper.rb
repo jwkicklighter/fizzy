@@ -10,7 +10,7 @@ module FiltersHelper
   end
 
   def filter_chip_tag(text, params)
-    link_to cards_path(params), class: "btn txt-small btn--remove fill-selected" do
+    link_to cards_path(params), class: "btn txt-x-small btn--remove fill-selected flex-inline" do
       concat tag.span(text)
       concat icon_tag("close")
     end
