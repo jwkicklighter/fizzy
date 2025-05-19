@@ -68,16 +68,6 @@
     }
   }
 
-  .card__id {
-    display: inline-flex;
-    margin-inline-start: calc(var(--inline-space) * -1);
-
-    .card-perma &:before {
-      content: "No.";
-      opacity: 0.5;
-    }
-  }
-
   .card__link {
     --hover-size: 0;
 
@@ -95,12 +85,25 @@
   .card__collection {
     background-color: var(--card-color);
     border-radius: var(--border-radius) 0 var(--border-radius) 0;
+    color: var(--color-ink-inverted);
     font-weight: 800;
     padding: var(--block-space-half) var(--inline-space) var(--block-space-half) var(--inline-space-double);
+    text-transform: uppercase;
+  }
+
+  .card__id {
+    display: inline-flex;
+    margin-inline-start: calc(var(--inline-space) * -1);
+
+    .card-perma &:before {
+      content: "No.";
+      opacity: 0.5;
+    }
   }
 
   .card__collection-name {
     border-inline-start: 1px solid color-mix(in srgb, var(--color-ink-inverted) 33%, var(--card-color));
+    color: currentcolor;
     display: inline-flex;
     margin-inline-start: var(--inline-space-half);
     padding-inline-start: calc(var(--inline-space) * 0.75);

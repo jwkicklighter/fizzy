@@ -2,9 +2,9 @@
   <%= card_article_tag card, class: "card" do %>
     <header class="card__header flex align-center gap min-width">
       <span class="card__collection">
-        <span class="card__id txt-reversed"><%= card.id %></span>
+        <span class="card__id"><%= card.id %></span>
         <%= link_to card.collection.name, cards_path(collection_ids: [ card.collection ]),
-              class: "card__collection-name txt-uppercase overflow-ellipsis txt-reversed" %>
+              class: "card__collection-name overflow-ellipsis" %>
       </span>
       <%= render "cards/display/preview/tags", card: card %>
     </header>
