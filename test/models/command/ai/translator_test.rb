@@ -54,7 +54,7 @@ class Command::Ai::TranslatorTest < ActionDispatch::IntegrationTest
     assert_command({ commands: [ "/insight what's the issue here?" ] }, "what's the issue here?", context: :card)
   end
 
-  test "filter by collection" do
+  test "filter by collections" do
     assert_command({ context: { collection_ids: [ "writebook" ] } }, "writebook collection")
   end
 

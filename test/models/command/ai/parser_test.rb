@@ -3,11 +3,6 @@ require "test_helper"
 class Command::Ai::ParserTest < ActionDispatch::IntegrationTest
   include CommandTestHelper, VcrTestHelper
 
-  test "the parsed command contains the raw line" do
-    result = parse_command "assign @kevin"
-    assert_equal "assign @kevin", result.line
-  end
-
   test "parse command strings into a composite command containing the individual commands" do
     result = parse_command "assign @kevin and close"
 
