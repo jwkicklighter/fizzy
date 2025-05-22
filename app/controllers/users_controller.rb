@@ -7,7 +7,6 @@ class UsersController < ApplicationController
   before_action :ensure_permission_to_change_user, only:  %i[ update destroy ]
 
   def index
-    @filters = Current.user.filters.all
     @users = User.active
   end
 
