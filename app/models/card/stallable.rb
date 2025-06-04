@@ -13,7 +13,11 @@ module Card::Stallable
   end
 
   def stalled?
-    activity_spike && activity_spike.updated_at < STALLED_AFTER_LAST_SPIKE_PERIOD.ago
+    last_activity_spike_at < STALLED_AFTER_LAST_SPIKE_PERIOD.ago if activity_spike.present?
+  end
+
+  def last_activity_spike_at
+    activity_spike&.updated_at
   end
 
   def detect_activity_spikes

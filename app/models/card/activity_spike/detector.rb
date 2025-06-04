@@ -7,8 +7,12 @@ class Card::ActivitySpike::Detector
 
   def detect
     if has_activity_spike?
-      activity_spike = card.activity_spike || card.build_activity_spike
-      activity_spike.touch
+      if card.activity_spike
+        card.activity_spike.touch
+      else
+        card.create_activity_spike!
+      end
+
       true
     else
       false
@@ -22,7 +26,7 @@ class Card::ActivitySpike::Detector
 
     def multiple_people_commented?
       card.comments
-        .where("created_at >= ?", recent_period.ago)
+        .where("created_at >= ?", recent_period.seconds.ago)
         .group(:card_id)
         .having("COUNT(*) >= ?", minimum_comments)
         .having("COUNT(DISTINCT creator_id) >= ?", minimum_participants)
