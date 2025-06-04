@@ -55,7 +55,7 @@ module Card::Entropy
   end
 
   def auto_reconsider_at
-    last_active_at + AUTO_RECONSIDER_PERIOD if auto_reconsidering?
+    last_active_at + auto_reconsider_period if auto_reconsidering?
   end
 
   def days_until_reconsider
