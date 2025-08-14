@@ -179,6 +179,7 @@
     align-items: center;
     color: var(--card-color);
     display: flex;
+    min-inline-size: 0;
   }
 
   .card__title {
