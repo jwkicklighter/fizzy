@@ -55,7 +55,7 @@ production: &production
       - <%= SqliteVec.loadable_path %>
   untenanted:
     <<: *default
-    database: storage/untenanted/production.sqlite3
+    database: file:storage/untenanted/<%= Rails.env %>.sqlite3?vfs=beamer
     migrations_paths: db/untenanted_migrate
   cable:
     <<: *default
