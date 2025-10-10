@@ -170,6 +170,7 @@ GEM
     anyway_config (2.7.2)
       ruby-next-core (~> 1.0)
     ast (2.4.3)
+    autotuner (1.0.2)
     aws-eventstream (1.4.0)
     aws-partitions (1.1170.0)
     aws-sdk-core (3.233.0)
@@ -606,6 +607,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord-tenanted
   activeresource
+  autotuner
   aws-sdk-s3
   bcrypt (~> 3.1.7)
   bootsnap

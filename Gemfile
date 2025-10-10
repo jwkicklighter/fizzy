@@ -48,6 +48,7 @@ gem "yabeda-puma-plugin"
 gem "yabeda-rails"
 gem "webrick" # required for yabeda-prometheus metrics server
 gem "prometheus-client-mmap", "~> 1.1"
+gem "autotuner"
 
 # AI
 gem "ruby_llm", git: "https://github.com/crmne/ruby_llm.git"
