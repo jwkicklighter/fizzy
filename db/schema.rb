@@ -297,7 +297,6 @@ ActiveRecord::Schema[8.2].define(version: 2025_11_10_175021) do
   end
 
   create_table "mentions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.integer "account_id"
     t.datetime "created_at", null: false
     t.bigint "mentionee_id", null: false
     t.bigint "mentioner_id", null: false
@@ -364,7 +363,6 @@ ActiveRecord::Schema[8.2].define(version: 2025_11_10_175021) do
   end
 
   create_table "reactions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.integer "account_id"
     t.integer "comment_id", null: false
     t.string "content", limit: 16, null: false
     t.datetime "created_at", null: false

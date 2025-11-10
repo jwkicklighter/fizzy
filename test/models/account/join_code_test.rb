@@ -2,7 +2,7 @@ require "test_helper"
 
 class Account::JoinCodeTest < ActiveSupport::TestCase
   test "generate code" do
-    join_code = Account::JoinCode.create!
+    join_code = Account::JoinCode.create!(account: Current.account)
 
     assert join_code.code.present?
 

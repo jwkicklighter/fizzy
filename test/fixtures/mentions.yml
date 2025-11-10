@@ -2,10 +2,8 @@ logo_card_david_mention_by_jz:
   source: logo (Card)
   mentioner: jz
   mentionee: david
-  account: 37s
 
 logo_comment_david_mention_by_jz:
   source: logo_agreement_jz (Comment)
   mentioner: jz
   mentionee: david
-  account: 37s
