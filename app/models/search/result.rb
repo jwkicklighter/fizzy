@@ -4,15 +4,15 @@ class Search::Result < ApplicationRecord
   belongs_to :comment, foreign_key: :comment_id, optional: true
 
   def card_title
-    highlight(card_title_in_database, show: :full)
+    highlight(card.title, show: :full) if card_id
   end
 
   def card_description
-    highlight(card_description_in_database, show: :snippet)
+    highlight(card.description.to_plain_text, show: :snippet) if card_id
   end
 
   def comment_body
-    highlight(comment_body_in_database, show: :snippet)
+    highlight(comment.body.to_plain_text, show: :snippet) if comment_id
   end
 
   def source
