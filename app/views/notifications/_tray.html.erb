@@ -7,7 +7,7 @@
       data-navigable-list-actionable-items-value="true"
       data-navigable-list-reverse-navigation-value="true"
       data-action="keydown->navigable-list#navigate dialog:show@document->navigable-list#reset turbo-visit->navigable-list#reset keydown.esc->dialog#close:stop click@document->dialog#closeOnClickOutside">
-    <%= turbo_frame_tag "notifications", src: tray_notifications_path, refresh: "morph" %>
+    <%= turbo_frame_tag "notifications", src: tray_notifications_path, refresh: "morph", data: { controller: "notifications-tray", notifications_tray_grouped_class: "notification--grouped", action: "turbo:frame-render->notifications-tray#group" } %>
 
     <div class="tray__item tray__item--hat txt-x-small gap-half">
       <div data-navigable-list-target="item" class="full-width">

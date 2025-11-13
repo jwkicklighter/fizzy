@@ -15,6 +15,10 @@
     }
   }
 
+  .panel--wide {
+    --panel-size: 60ch;
+  }
+
   .panel--centered {
     --panel-border-size: 0;
     --panel-size: 100%;
