@@ -1,7 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 import { nextFrame, debounce } from "helpers/timing_helpers";
 
-// TODO: Default column is 1. But when you expand and collapse and such, we should save that value to localStorage
 // TODO: When collapsing, move focus to nearest expanded column
 
 export default class extends Controller {
@@ -13,8 +12,9 @@ export default class extends Controller {
 
   initialize() {
     this.restoreState = debounce(this.restoreState.bind(this), 10)
+    // TODO: The default focused column is Maybe (index 1), but the most recently expanded column should save to localStorage
     this.currentColumnIndex = 1
-    this.#navigateToColumn(this.currentColumnIndex)
+    this.#focus(this.allColumns[this.currentColumnIndex])
   }
 
   async connect() {
