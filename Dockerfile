@@ -59,9 +59,6 @@ RUN useradd rails --create-home --shell /bin/bash && \
     chown -R rails:rails db log storage tmp
 USER rails:rails
 
-# Entrypoint prepares the database.
-ENTRYPOINT ["/rails/bin/docker-entrypoint"]
-
 # Ruby GC tuning values pulled from Autotuner recommendations
 ENV RUBY_GC_HEAP_0_INIT_SLOTS=692636 \
     RUBY_GC_HEAP_1_INIT_SLOTS=175943 \

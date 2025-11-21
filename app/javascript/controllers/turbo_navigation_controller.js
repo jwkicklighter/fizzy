@@ -6,6 +6,8 @@ export default class extends Controller {
   }
 
   backIfSamePath(event) {
+    if (event.ctrlKey || event.metaKey || event.shiftKey) { return }
+
     const link = event.target.closest("a")
     const targetUrl = new URL(link.href)
 
