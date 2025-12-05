@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.2].define(version: 2025_12_01_100607) do
+ActiveRecord::Schema[8.2].define(version: 2025_12_05_112423) do
   create_table "accesses", id: :uuid, force: :cascade do |t|
     t.datetime "accessed_at"
     t.uuid "account_id", null: false
@@ -52,6 +52,7 @@ ActiveRecord::Schema[8.2].define(version: 2025_12_01_100607) do
   end
 
   create_table "accounts", id: :uuid, force: :cascade do |t|
+    t.bigint "bytes_used", default: 0
     t.bigint "cards_count", default: 0, null: false
     t.datetime "created_at", null: false
     t.bigint "external_account_id"

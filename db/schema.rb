@@ -51,21 +51,6 @@ ActiveRecord::Schema[8.2].define(version: 2025_12_05_112423) do
     t.index ["account_id", "code"], name: "index_account_join_codes_on_account_id_and_code", unique: true
   end
 
-  create_table "account_subscriptions", id: :uuid, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.uuid "account_id", null: false
-    t.datetime "cancel_at"
-    t.datetime "created_at", null: false
-    t.datetime "current_period_end"
-    t.string "plan_key"
-    t.string "status"
-    t.string "stripe_customer_id"
-    t.string "stripe_subscription_id"
-    t.datetime "updated_at", null: false
-    t.index ["account_id"], name: "index_account_subscriptions_on_account_id"
-    t.index ["stripe_customer_id"], name: "index_account_subscriptions_on_stripe_customer_id", unique: true
-    t.index ["stripe_subscription_id"], name: "index_account_subscriptions_on_stripe_subscription_id", unique: true
-  end
-
   create_table "accounts", id: :uuid, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "bytes_used", default: 0
     t.bigint "cards_count", default: 0, null: false
