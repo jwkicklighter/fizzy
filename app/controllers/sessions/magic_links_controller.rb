@@ -22,15 +22,15 @@ class Sessions::MagicLinksController < ApplicationController
     end
 
     def respond_to_valid_code_from(magic_link)
+      start_new_session_for magic_link.identity
+
       respond_to do |format|
         format.html do
-          start_new_session_for magic_link.identity
           redirect_to after_sign_in_url(magic_link)
         end
 
         format.json do
-          new_access_token = magic_link.identity.access_tokens.create!(permission: :write)
-          render json: { access_token: new_access_token.token }
+          render json: { session_token: cookies[:session_token] }
         end
       end
     end

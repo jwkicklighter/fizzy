@@ -20,7 +20,7 @@ class ApiTest < ActionDispatch::IntegrationTest
     untenanted do
       post session_magic_link_path(format: :json), params: { code: magic_link.code }
       assert_response :success
-      assert @response.parsed_body["access_token"].present?
+      assert @response.parsed_body["session_token"].present?
     end
   end
 
