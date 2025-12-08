@@ -7,7 +7,7 @@
   <% if board.published? %>
     <div class="border-radius pad fill-selected">
       <%= form_with url: board_publication_path(board), method: :delete, class: "flex-inline center justify-between gap", data: { controller: "form" } do |form| %>
-        <label class="flex gap">
+        <label class="flex gap cursor-pointer">
           <span class="txt-large"><%= icon_tag "lock" %></span>
           <span class="switch flex align-center justify-between">
             <%= form.check_box :published, class: "switch__input", checked: true, data: { action: "change->form#submit" }, disabled: !Current.user.can_administer_board?(@board) %>
@@ -42,7 +42,7 @@
     <div class="border-radius pad fill-shade">
       <%= form_with url: board_publication_path(board), method: :post, class: "flex-inline center justify-between gap", data: { controller: "form" } do |form| %>
         <span class="txt-large" aria-hidden="true"><%= icon_tag "lock" %></span>
-        <label class="flex gap">
+        <label class="flex gap cursor-pointer">
           <span class="switch flex align-center justify-between">
             <%= form.check_box :published, class: "switch__input", checked: false, data: { action: "change->form#submit" }, disabled: !Current.user.can_administer_board?(@board) %>
             <span class="switch__btn round"></span>
