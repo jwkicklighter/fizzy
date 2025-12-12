@@ -50,7 +50,7 @@ class Account::ExportsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "show displays completed export with download link" do
-    export = Account::Export.create!(account: Current.account, user: users(:david))
+    export = Account::SingleUserExport.create!(account: Current.account, user: users(:david))
     export.build
 
     get account_export_path(export)
@@ -67,7 +67,7 @@ class Account::ExportsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "show does not allow access to another user's export" do
-    export = Account::Export.create!(account: Current.account, user: users(:kevin))
+    export = Account::SingleUserExport.create!(account: Current.account, user: users(:kevin))
     export.build
 
     get account_export_path(export)
