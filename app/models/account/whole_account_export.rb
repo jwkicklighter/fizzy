@@ -1,19 +1,21 @@
 class Account::WholeAccountExport < Account::Export
   private
-    def generate_zip
-      Tempfile.new([ "export", ".zip" ]).tap do |tempfile|
-        Zip::File.open(tempfile.path, create: true) do |zip|
-          export_account(zip)
-          export_users(zip)
-          export_boards(zip)
-          export_columns(zip)
-          export_cards(zip)
-          export_steps(zip)
-          export_comments(zip)
-          export_action_text_rich_texts(zip)
-          export_active_storage_attachments(zip)
-          export_active_storage_blobs(zip)
-        end
+    def populate_zip(zip)
+      export_account(zip)
+      export_users(zip)
+    end
+
+    def export_account(zip)
+      data = account.as_json.merge(
+        join_code: account.join_code.as_json,
+      )
+
+      add_file_to_zip(zip, "account.json", JSON.pretty_generate(data))
+    end
+
+    def export_users(zip)
+      account.users.find_each do |user|
+        add_file_to_zip(zip, "users/#{user.id}.json", user.export_json)
       end
     end
 end

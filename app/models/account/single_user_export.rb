@@ -1,12 +1,8 @@
 class Account::SingleUserExport < Account::Export
   private
-    def generate_zip
-      Tempfile.new([ "export", ".zip" ]).tap do |tempfile|
-        Zip::File.open(tempfile.path, create: true) do |zip|
-          exportable_cards.find_each do |card|
-            add_card_to_zip(zip, card)
-          end
-        end
+    def populate_zip(zip)
+      exportable_cards.find_each do |card|
+        add_card_to_zip(zip, card)
       end
     end
 
@@ -20,12 +16,10 @@ class Account::SingleUserExport < Account::Export
     end
 
     def add_card_to_zip(zip, card)
-      zip.get_output_stream("#{card.number}.json") do |f|
-        f.write(card.export_json)
-      end
+      add_file_to_zip(zip, "#{card.number}.json", card.export_json)
 
       card.export_attachments.each do |attachment|
-        zip.get_output_stream(attachment[:path], compression_method: Zip::Entry::STORED) do |f|
+        add_file_to_zip(zip, attachment[:path], compression_method: Zip::Entry::STORED) do |f|
           attachment[:blob].download { |chunk| f.write(chunk) }
         end
       rescue ActiveStorage::FileNotFoundError
