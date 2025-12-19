@@ -76,9 +76,6 @@ Rails.application.configure do
                                        .tap  { |logger| logger.formatter = ::Logger::Formatter.new }
                                        .then { |logger| ActiveSupport::TaggedLogging.new(logger) }
 
-  # Suppress unstructured log lines
-  config.log_level = :fatal
-
   # Prepend all log lines with the following tags.
   config.log_tags = [ :request_id ]
 
