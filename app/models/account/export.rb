@@ -19,18 +19,23 @@ class Account::Export < ApplicationRecord
 
   def build
     processing!
-    zipfile = generate_zip { |zip| populate_zip(zip) }
 
-    file.attach io: File.open(zipfile.path), filename: "fizzy-export-#{id}.zip", content_type: "application/zip"
-    mark_completed
+    Current.set(account: account) do
+      with_url_options do
+        zipfile = generate_zip { |zip| populate_zip(zip) }
 
-    ExportMailer.completed(self).deliver_later
+        file.attach io: File.open(zipfile.path), filename: "fizzy-export-#{id}.zip", content_type: "application/zip"
+        mark_completed
+
+        ExportMailer.completed(self).deliver_later
+      ensure
+        zipfile&.close
+        zipfile&.unlink
+      end
+    end
   rescue => e
     update!(status: :failed)
     raise
-  ensure
-    zipfile&.close
-    zipfile&.unlink
   end
 
   def mark_completed
@@ -38,6 +43,10 @@ class Account::Export < ApplicationRecord
   end
 
   private
+    def with_url_options
+      ActiveStorage::Current.set(url_options: { host: "localhost" }) { yield }
+    end
+
     def populate_zip(zip)
       raise NotImplementedError, "Subclasses must implement populate_zip"
     end
