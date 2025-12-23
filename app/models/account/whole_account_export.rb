@@ -215,7 +215,6 @@ class Account::WholeAccountExport < Account::Export
     def convert_sgids_to_gids(content)
       return nil if content.blank?
 
-      replaced = false
       content.send(:attachment_nodes).each do |node|
         sgid = SignedGlobalID.parse(node["sgid"], for: ActionText::Attachable::LOCATOR_NAME)
         record = sgid&.find
@@ -223,10 +222,8 @@ class Account::WholeAccountExport < Account::Export
 
         node["gid"] = record.to_global_id.to_s
         node.remove_attribute("sgid")
-        replaced = true
       end
 
-      puts content.fragment.source.to_html
       content.fragment.source.to_html
     end
 
