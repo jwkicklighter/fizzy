@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   root "events#index"
 
+  post "mcp", to: "mcp#create"
+  get "mcp", to: "mcp#show"
+
   namespace :account do
     resource :entropy
     resource :join_code
