@@ -4,6 +4,7 @@ class Account::ImportsController < ApplicationController
   disallow_account_scope only: %i[ new create ]
   allow_unauthorized_access only: :show
   before_action :set_import, only: %i[ show ]
+  before_action :ensure_accessed_by_owner, only: %i[ show ]
 
   def new
   end
@@ -24,6 +25,10 @@ class Account::ImportsController < ApplicationController
   private
     def set_import
       @import = Current.account.imports.find(params[:id])
+    end
+
+    def ensure_accessed_by_owner
+      head :forbidden unless @import.identity == Current.identity
     end
 
     def start_import(account)

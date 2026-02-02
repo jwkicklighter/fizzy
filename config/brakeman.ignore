@@ -67,7 +67,7 @@
       "cwe_id": [
         295
       ],
-      "note": ""
+      "note": "Required for internal PureStorage self-signed certificates. Only used for trusted internal storage URLs."
     },
     {
       "warning_type": "Mass Assignment",
