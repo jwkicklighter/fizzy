@@ -1,6 +1,12 @@
 @layer reset, base, components, modules, utilities, native, platform;
 
 :root {
+  /* Insets - The mobile apps may inject their own custom insets based on native elements on screen, like a floating navigation */
+  --custom-safe-inset-top: var(--injected-safe-inset-top, env(safe-area-inset-top, 0px));
+  --custom-safe-inset-right: var(--injected-safe-inset-right, env(safe-area-inset-right, 0px));
+  --custom-safe-inset-bottom: var(--injected-safe-inset-bottom, env(safe-area-inset-bottom, 0px));
+  --custom-safe-inset-left: var(--injected-safe-inset-left, env(safe-area-inset-left, 0px));
+
   /* Spacing */
   --inline-space: 1ch;
   --inline-space-half: calc(var(--inline-space) / 2);
@@ -10,7 +16,7 @@
   --block-space-double: calc(var(--block-space) * 2);
 
   /* Text */
-  --font-sans: "Adwaita Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  --font-sans: "Adwaita Sans", -apple-system, BlinkMacSystemFont, "Segoe UI Variable Fizzy", "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   --font-serif: ui-serif, serif;
   --font-mono: ui-monospace, monospace;
 
@@ -207,7 +213,7 @@
   --color-terminal-text: var(--color-ink);
   --color-terminal-text-light: var(--color-ink-lighter);
   --color-golden: oklch(89.1% 0.178 95.7);
-  --color-considering: oklch(var(--lch-blue-medium));
+  --color-maybe: oklch(var(--lch-blue-medium));
 
   /* Colors: Cards */
   --color-card-default: oklch(var(--lch-blue-dark));

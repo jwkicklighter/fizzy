@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.2].define(version: 2025_12_10_054934) do
+ActiveRecord::Schema[8.2].define(version: 2026_01_21_155752) do
   create_table "accesses", id: :uuid, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.datetime "accessed_at"
     t.uuid "account_id", null: false
@@ -25,20 +25,28 @@ ActiveRecord::Schema[8.2].define(version: 2025_12_10_054934) do
     t.index ["user_id"], name: "index_accesses_on_user_id"
   end
 
-  create_table "account_exports", id: :uuid, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "account_cancellations", id: :uuid, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.uuid "account_id", null: false
-    t.datetime "completed_at"
     t.datetime "created_at", null: false
-    t.string "status", default: "pending", null: false
+    t.uuid "initiated_by_id", null: false
     t.datetime "updated_at", null: false
-    t.uuid "user_id", null: false
-    t.index ["account_id"], name: "index_account_exports_on_account_id"
-    t.index ["user_id"], name: "index_account_exports_on_user_id"
+    t.index ["account_id"], name: "index_account_cancellations_on_account_id", unique: true
   end
 
   create_table "account_external_id_sequences", id: :uuid, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "value", default: 0, null: false
     t.index ["value"], name: "index_account_external_id_sequences_on_value", unique: true
+  end
+
+  create_table "account_imports", id: :uuid, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.uuid "account_id"
+    t.datetime "completed_at"
+    t.datetime "created_at", null: false
+    t.uuid "identity_id", null: false
+    t.string "status", default: "pending", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_account_imports_on_account_id"
+    t.index ["identity_id"], name: "index_account_imports_on_identity_id"
   end
 
   create_table "account_join_codes", id: :uuid, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -169,16 +177,6 @@ ActiveRecord::Schema[8.2].define(version: 2025_12_10_054934) do
     t.index ["card_id"], name: "index_card_activity_spikes_on_card_id", unique: true
   end
 
-  create_table "card_engagements", id: :uuid, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.uuid "account_id", null: false
-    t.uuid "card_id"
-    t.datetime "created_at", null: false
-    t.string "status", default: "doing", null: false
-    t.datetime "updated_at", null: false
-    t.index ["account_id", "status"], name: "index_card_engagements_on_account_id_and_status"
-    t.index ["card_id"], name: "index_card_engagements_on_card_id"
-  end
-
   create_table "card_goldnesses", id: :uuid, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.uuid "account_id", null: false
     t.uuid "card_id", null: false
@@ -293,6 +291,19 @@ ActiveRecord::Schema[8.2].define(version: 2025_12_10_054934) do
     t.index ["board_id"], name: "index_events_on_board_id"
     t.index ["creator_id"], name: "index_events_on_creator_id"
     t.index ["eventable_type", "eventable_id"], name: "index_events_on_eventable"
+  end
+
+  create_table "exports", id: :uuid, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.uuid "account_id", null: false
+    t.datetime "completed_at"
+    t.datetime "created_at", null: false
+    t.string "status", default: "pending", null: false
+    t.string "type"
+    t.datetime "updated_at", null: false
+    t.uuid "user_id", null: false
+    t.index ["account_id"], name: "index_exports_on_account_id"
+    t.index ["type"], name: "index_exports_on_type"
+    t.index ["user_id"], name: "index_exports_on_user_id"
   end
 
   create_table "filters", id: :uuid, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -414,13 +425,14 @@ ActiveRecord::Schema[8.2].define(version: 2025_12_10_054934) do
 
   create_table "reactions", id: :uuid, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.uuid "account_id", null: false
-    t.uuid "comment_id", null: false
     t.string "content", limit: 16, null: false
     t.datetime "created_at", null: false
+    t.uuid "reactable_id", null: false
+    t.string "reactable_type", null: false
     t.uuid "reacter_id", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_reactions_on_account_id"
-    t.index ["comment_id"], name: "index_reactions_on_comment_id"
+    t.index ["reactable_type", "reactable_id"], name: "index_reactions_on_reactable_type_and_reactable_id"
     t.index ["reacter_id"], name: "index_reactions_on_reacter_id"
   end
 

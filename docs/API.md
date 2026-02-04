@@ -118,6 +118,22 @@ __Error responses:__
 | `401 Unauthorized` | Invalid `pending_authentication_token` or `code` |
 | `429 Too Many Requests` | Rate limit exceeded |
 
+
+#### Delete server-side session (_log out_)
+
+To log out and destroy the server-side session:
+
+```bash
+curl -X DELETE \
+  -H "Accept: application/json" \
+  -H "Cookie: session_token=eyJfcmFpbHMi..." \
+  https://app.fizzy.do/session
+```
+
+__Response:__
+
+Returns `204 No Content` on success.
+
 ## Caching
 
 Most endpoints return [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/ETag) and [Cache-Control](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Cache-Control) headers. You can use these to avoid re-downloading unchanged data.
@@ -553,7 +569,8 @@ __Response:__
       "created_at": "2025-12-05T19:36:35.401Z",
       "url": "http://fizzy.localhost:3006/897362094/users/03f5v9zjw7pz8717a4no1h8a7"
     },
-    "comments_url": "http://fizzy.localhost:3006/897362094/cards/4/comments"
+    "comments_url": "http://fizzy.localhost:3006/897362094/cards/4/comments",
+    "reactions_url": "http://fizzy.localhost:3006/897362094/cards/4/reactions"
   },
 ]
 ```
@@ -574,6 +591,7 @@ __Response:__
   "description_html": "<div class=\"action-text-content\"><p>Hello, World!</p></div>",
   "image_url": null,
   "tags": ["programming"],
+  "closed": false,
   "golden": false,
   "last_active_at": "2025-12-05T19:38:48.553Z",
   "created_at": "2025-12-05T19:38:48.540Z",
@@ -594,6 +612,15 @@ __Response:__
       "url": "http://fizzy.localhost:3006/897362094/users/03f5v9zjw7pz8717a4no1h8a7"
     }
   },
+  "column": {
+    "id": "03f5v9zkft4hj9qq0lsn9ohcn",
+    "name": "In Progress",
+    "color": {
+      "name": "Lime",
+      "value": "var(--color-card-4)"
+    },
+    "created_at": "2025-12-05T19:36:35.534Z"
+  },
   "creator": {
     "id": "03f5v9zjw7pz8717a4no1h8a7",
     "name": "David Heinemeier Hansson",
@@ -604,6 +631,7 @@ __Response:__
     "url": "http://fizzy.localhost:3006/897362094/users/03f5v9zjw7pz8717a4no1h8a7"
   },
   "comments_url": "http://fizzy.localhost:3006/897362094/cards/4/comments",
+  "reactions_url": "http://fizzy.localhost:3006/897362094/cards/4/reactions",
   "steps": [
     {
       "id": "03f8huu0sog76g3s975963b5e",
@@ -618,6 +646,8 @@ __Response:__
   ]
 }
 ```
+
+> **Note:** The `closed` field indicates whether the card is in the "Done" state. The `column` field is only present when the card has been triaged into a column; cards in "Maybe?", "Not Now" or "Done" will not have this field.
 
 ### `POST /:account_slug/boards/:board_id/cards`
 
@@ -678,6 +708,14 @@ Returns the updated card.
 ### `DELETE /:account_slug/cards/:card_number`
 
 Deletes a card. Only the card creator or board administrators can delete cards.
+
+__Response:__
+
+Returns `204 No Content` on success.
+
+### `DELETE /:account_slug/cards/:card_number/image`
+
+Removes the header image from a card.
 
 __Response:__
 
@@ -766,6 +804,95 @@ Unsubscribes the current user from notifications for this card.
 __Response:__
 
 Returns `204 No Content` on success.
+
+### `POST /:account_slug/cards/:card_number/goldness`
+
+Marks a card as golden.
+
+__Response:__
+
+Returns `204 No Content` on success.
+
+### `DELETE /:account_slug/cards/:card_number/goldness`
+
+Removes golden status from a card.
+
+__Response:__
+
+Returns `204 No Content` on success.
+
+## Pins
+
+Pins let users keep quick access to important cards.
+
+### `POST /:account_slug/cards/:card_number/pin`
+
+Pins a card for the current user.
+
+__Response:__
+
+Returns `204 No Content` on success.
+
+### `DELETE /:account_slug/cards/:card_number/pin`
+
+Unpins a card for the current user.
+
+__Response:__
+
+Returns `204 No Content` on success.
+
+### `GET /my/pins`
+
+Returns the current user's pinned cards. This endpoint is not paginated and returns up to 100 cards.
+
+__Response:__
+
+```json
+[
+  {
+    "id": "03f5vaeq985jlvwv3arl4srq2",
+    "number": 1,
+    "title": "First!",
+    "status": "published",
+    "description": "Hello, World!",
+    "description_html": "<div class=\"action-text-content\"><p>Hello, World!</p></div>",
+    "image_url": null,
+    "tags": ["programming"],
+    "golden": false,
+    "last_active_at": "2025-12-05T19:38:48.553Z",
+    "created_at": "2025-12-05T19:38:48.540Z",
+    "url": "http://fizzy.localhost:3006/897362094/cards/4",
+    "board": {
+      "id": "03f5v9zkft4hj9qq0lsn9ohcm",
+      "name": "Fizzy",
+      "all_access": true,
+      "created_at": "2025-12-05T19:36:35.534Z",
+      "url": "http://fizzy.localhost:3006/897362094/boards/03f5v9zkft4hj9qq0lsn9ohcm",
+      "creator": {
+        "id": "03f5v9zjw7pz8717a4no1h8a7",
+        "name": "David Heinemeier Hansson",
+        "role": "owner",
+        "active": true,
+        "email_address": "david@example.com",
+        "created_at": "2025-12-05T19:36:35.401Z",
+        "url": "http://fizzy.localhost:3006/897362094/users/03f5v9zjw7pz8717a4no1h8a7",
+        "avatar_url": "http://fizzy.localhost:3006/897362094/users/03f5v9zjw7pz8717a4no1h8a7/avatar"
+      }
+    },
+    "creator": {
+      "id": "03f5v9zjw7pz8717a4no1h8a7",
+      "name": "David Heinemeier Hansson",
+      "role": "owner",
+      "active": true,
+      "email_address": "david@example.com",
+      "created_at": "2025-12-05T19:36:35.401Z",
+      "url": "http://fizzy.localhost:3006/897362094/users/03f5v9zjw7pz8717a4no1h8a7",
+      "avatar_url": "http://fizzy.localhost:3006/897362094/users/03f5v9zjw7pz8717a4no1h8a7/avatar"
+    },
+    "comments_url": "http://fizzy.localhost:3006/897362094/cards/4/comments"
+  }
+]
+```
 
 ## Comments
 
@@ -892,7 +1019,66 @@ __Response:__
 
 Returns `204 No Content` on success.
 
-## Reactions
+## Card Reactions (Boosts)
+
+Card reactions (also called "boosts") let users add short responses directly to cards. These are limited to 16 characters.
+
+### `GET /:account_slug/cards/:card_number/reactions`
+
+Returns a list of reactions on a card.
+
+__Response:__
+
+```json
+[
+  {
+    "id": "03f5v9zo9qlcwwpyc0ascnikz",
+    "content": "👍",
+    "reacter": {
+      "id": "03f5v9zjw7pz8717a4no1h8a7",
+      "name": "David Heinemeier Hansson",
+      "role": "owner",
+      "active": true,
+      "email_address": "david@example.com",
+      "created_at": "2025-12-05T19:36:35.401Z",
+      "url": "http://fizzy.localhost:3006/897362094/users/03f5v9zjw7pz8717a4no1h8a7"
+    },
+    "url": "http://fizzy.localhost:3006/897362094/cards/3/reactions/03f5v9zo9qlcwwpyc0ascnikz"
+  }
+]
+```
+
+### `POST /:account_slug/cards/:card_number/reactions`
+
+Adds a reaction (boost) to a card.
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `content` | string | Yes | The reaction text (max 16 characters) |
+
+__Request:__
+
+```json
+{
+  "reaction": {
+    "content": "Great 👍"
+  }
+}
+```
+
+__Response:__
+
+Returns `201 Created` on success.
+
+### `DELETE /:account_slug/cards/:card_number/reactions/:reaction_id`
+
+Removes your reaction from a card. Only the reaction creator can remove their own reactions.
+
+__Response:__
+
+Returns `204 No Content` on success.
+
+## Comment Reactions
 
 Reactions are short (16-character max) responses to comments.
 
